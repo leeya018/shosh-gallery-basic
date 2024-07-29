@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+.background-container {
+  position: relative;
+  width: 100%;
+  height: 100vh; /* Adjust height as needed */
+  overflow: hidden; /* Ensures pseudo-element doesn't overflow the container */
+}
+
+.background-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("/images/background.png");
+  background-size: cover;
+  background-position: center;
+  background: 0.05; /* Adjust opacity as needed */
+  z-index: -1; /* Ensures the pseudo-element is behind the content */
+}
