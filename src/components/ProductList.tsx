@@ -3,17 +3,15 @@
 import React, { useEffect, useState } from "react";
 // import { products } from "@/util";
 import ProductCard from "./ProductCard";
-import { Product } from "@/api/product/interfaces";
-import { getProductsApi } from "@/api/product/get";
 import Loading from "./Loading";
-import { removeProductApi } from "@/api/product/remove";
 import { observer } from "mobx-react-lite";
 import productStore from "@/mobx/ProductStore";
-import { productsItems } from "@/util";
+import { Product } from "@/interfaces/Product";
 
 type ProductListProps = {
   isLoading: boolean;
   products: Product[];
+
   pageName: string;
 };
 const ProductList: React.FC<ProductListProps> = ({

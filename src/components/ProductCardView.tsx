@@ -5,6 +5,10 @@ import Image from "next/image";
 import React from "react";
 import cartStore from "@/mobx/cartStore";
 import productStore from "@/mobx/ProductStore";
+import { ModalStore } from "@/mobx/modalStore";
+import { modals } from "@/util";
+import messageStore from "@/mobx/messageStore";
+import axios from "axios";
 
 type ProductCardView = {
   pageName: string;
@@ -26,6 +30,35 @@ const ProductCardView: React.FC<ProductCardView> = ({ pageName }) => {
     cartStore.addItem(productStore.chosenProduct);
   };
   console.log({ imageUrl });
+
+  const handleRemove = async () => {
+    try {
+      const product = productStore.chosenProduct;
+      if (!product?.id) {
+        messageStore.setMessage("product id not defiened");
+        return;
+      } else if (!product.imageUrl) {
+        messageStore.setMessage("imageUrl not defiened");
+        return;
+      }
+
+      await axios.delete(`/api/items/${product.id}`);
+      productStore.removeProduct(product.id);
+      messageStore.setMessage("Product removed successfully!", "success");
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error(error.message);
+        messageStore.setMessage(
+          "Error removing product: " + error.message,
+          "error"
+        );
+      } else {
+        console.error("Error adding product:", error);
+      }
+    } finally {
+      ModalStore.closeModal();
+    }
+  };
   return (
     <div className=" mx-2  my-5 rounded-xl  bg-card-gradient cursor-pointer ">
       <div className=" relative w-full h-[60vh]">
@@ -48,6 +81,24 @@ const ProductCardView: React.FC<ProductCardView> = ({ pageName }) => {
         </h3>
       </div>
 
+      {true && (
+        <div className="w-full flex justify-between items-center">
+          <button
+            onClick={handleRemove}
+            className="flex items-center bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600"
+          >
+            מחק
+          </button>
+          <button
+            onClick={() => {
+              ModalStore.openModal(modals.editProduct);
+            }}
+            className="flex items-center bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+          >
+            ערוך
+          </button>
+        </div>
+      )}
       <button
         onClick={addToCart}
         disabled={isExists}

@@ -2,11 +2,10 @@
 
 import React, { useState, useEffect } from "react";
 import messageStore from "@/mobx/messageStore";
+import productStore from "@/mobx/ProductStore";
 import Image from "next/image";
 import { observer } from "mobx-react-lite";
 import { toJS } from "mobx";
-import axios from "axios";
-import productStore from "@/mobx/ProductStore";
 import { Product } from "@/interfaces/Product";
 
 interface EditProductFormProps {
@@ -48,12 +47,9 @@ const EditProductForm: React.FC<EditProductFormProps> = ({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const res = await axios.put(
-        `/api/items/${updatedProduct.id}`,
-        updatedProduct
-      );
-      if (!res.data) throw new Error("product updated is null");
-      productStore.updateProduct(res.data);
+      const updatedProd = await updateProductApi(updatedProduct);
+      if (!updatedProd) throw new Error("product updated is null");
+      productStore.updateProduct(updatedProd);
       messageStore.setMessage("Product updated successfully!", "success");
       onClose();
     } catch (error) {
