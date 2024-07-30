@@ -10,7 +10,7 @@ const nextConfig = {
       },
       {
         protocol: "https",
-        hostname: "shosh-gallery2.netlify.app",
+        hostname: "shosh-gallery.netlify.app",
         pathname: "/**",
       },
       {
