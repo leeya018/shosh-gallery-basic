@@ -67,6 +67,18 @@ const EditProductForm: React.FC<EditProductFormProps> = ({
       }
     }
   };
+  const handleChangeSize = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
+  ) => {
+    const { name, value } = e.target;
+
+    setUpdatedProduct({
+      ...product,
+      size: { ...product.size, [name]: value },
+    });
+  };
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
@@ -150,7 +162,37 @@ const EditProductForm: React.FC<EditProductFormProps> = ({
           required
         />
       </div>
-
+      <div className="mb-4">
+        <label htmlFor="size" className="block text-gray-700 font-bold mb-2">
+          size - w - h
+        </label>
+        <div className="flex items-center gap-4">
+          {/* <span>widht X height</span> */}
+          <input
+            type="number"
+            id="width"
+            name="width"
+            max={200}
+            min={10}
+            value={updatedProduct.size.width}
+            onChange={handleChangeSize}
+            className="w-14 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300"
+            required
+          />
+          X
+          <input
+            type="number"
+            id="height"
+            name="height"
+            max={200}
+            min={10}
+            value={updatedProduct.size.height}
+            onChange={handleChangeSize}
+            className=" w-14 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300"
+            required
+          />
+        </div>
+      </div>
       <div className="flex justify-end">
         <button
           type="submit"

@@ -18,7 +18,7 @@ type ProductCardView = {
 const ProductCardView: React.FC<ProductCardView> = ({ pageName }) => {
   if (!productStore.chosenProduct) return <div></div>;
 
-  const { id, name, imageUrl, price, currency, description } =
+  const { id, name, imageUrl, price, size, currency, description } =
     productStore.chosenProduct;
 
   const isExists = cartStore.isItemExists(productStore.chosenProduct);
@@ -72,13 +72,19 @@ const ProductCardView: React.FC<ProductCardView> = ({ pageName }) => {
       </div>
       <div className="my-4 px-5 py-2 text-white">
         <h3 className="text-lg font-semibold mb-2 whitespace-normal  ">
+          {/* שם: */}
           {name}
         </h3>
         <h3 className="text-lg font-semibold mb-2 whitespace-normal  ">
-          מחיר : {price} {currency}
+          מחיר :{price} {currency}
         </h3>
         <h3 className="text-lg font-semibold mb-2 whitespace-normal  ">
+          {/* תיאור: */}
           {description}
+        </h3>
+        <h3 className="text-lg font-semibold mb-2 whitespace-normal  ">
+          {/*  מידות ( אורך על רוחב) : */}
+          {size.width} X {size.height}
         </h3>
       </div>
 

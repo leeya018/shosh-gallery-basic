@@ -17,6 +17,7 @@ import axios from "axios";
 import productStore from "@/mobx/ProductStore";
 import AddProductForm from "@/components/AddProductForm";
 import LoginForm from "@/components/LoginForm";
+import authStore from "@/mobx/authStore";
 const HomePage = ({}) => {
   const [isLoading, setIsLoading] = useState(false);
 
@@ -68,9 +69,11 @@ const HomePage = ({}) => {
         )}
       </Modal>
 
-      <div className="w-screen flex justify-center ">
-        <AddButton />
-      </div>
+      {/* {authStore.isLoggedIn && (
+        <div className="w-screen flex justify-center ">
+          <AddButton />
+        </div>
+      )} */}
       <MainSection />
       <ProductList
         isLoading={isLoading}

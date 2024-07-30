@@ -8,4 +8,10 @@ export type Product = {
   price: number;
   currency: string;
   description: string;
+  size: Size;
+};
+
+export type Size = {
+  width: number;
+  height: number;
 };
