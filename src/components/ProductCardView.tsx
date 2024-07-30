@@ -9,6 +9,7 @@ import { ModalStore } from "@/mobx/modalStore";
 import { modals } from "@/util";
 import messageStore from "@/mobx/messageStore";
 import axios from "axios";
+import authStore from "@/mobx/authStore";
 
 type ProductCardView = {
   pageName: string;
@@ -81,7 +82,7 @@ const ProductCardView: React.FC<ProductCardView> = ({ pageName }) => {
         </h3>
       </div>
 
-      {true && (
+      {authStore.isLoggedIn && (
         <div className="w-full flex justify-between items-center">
           <button
             onClick={handleRemove}
@@ -99,15 +100,18 @@ const ProductCardView: React.FC<ProductCardView> = ({ pageName }) => {
           </button>
         </div>
       )}
-      <button
-        onClick={addToCart}
-        disabled={isExists}
-        className={`${
-          isExists ? "bg-gray-500" : "bg-blue-500 hover:bg-blue-600"
-        } flex items-center  text-white px-4 py-2 rounded-md `}
-      >
-        {isExists ? "הוסף לעגלה" : "הכנס לעגלה"}
-      </button>
+
+      {!authStore.isLoggedIn && (
+        <button
+          onClick={addToCart}
+          disabled={isExists}
+          className={`${
+            isExists ? "bg-gray-500" : "bg-blue-500 hover:bg-blue-600"
+          } flex items-center  text-white px-4 py-2 rounded-md `}
+        >
+          {isExists ? "הוסף לעגלה" : "הכנס לעגלה"}
+        </button>
+      )}
     </div>
   );
 };

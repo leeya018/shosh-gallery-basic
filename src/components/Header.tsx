@@ -10,10 +10,26 @@ import Image from "next/image";
 import { FaCartShopping } from "react-icons/fa6";
 import cartStore from "@/mobx/cartStore";
 import { useRouter } from "next/navigation";
+import authStore from "@/mobx/authStore";
+import { auth } from "@/firebaseConfig";
 
 const Header = observer(() => {
   const [activeTab, setActiveTab] = useState("home");
   const router = useRouter();
+
+  const logout = async () => {
+    try {
+      await signOut(auth);
+      console.log("User signed out successfully");
+    } catch (error) {
+      console.error("Error signing out: ", error);
+      if (error instanceof Error) {
+        console.error(error.message);
+      } else {
+        console.error("Error signing out:", error);
+      }
+    }
+  };
 
   return (
     <header className="flex justify-between items-center px-6 py-2 bg-white  shadow-md">
@@ -62,7 +78,31 @@ const Header = observer(() => {
           </li>
         </ul>
       </nav>
-      <div></div>
+      <div>
+        {authStore.isLoggedIn ? (
+          <div>
+            <span className="mr-2">
+              שלום, {authStore.user?.displayName || authStore.user?.email}
+            </span>
+            <button
+              onClick={logout}
+              className="bg-blue-500 text-white px-4 py-2 rounded-md mr-2"
+            >
+              יציאה
+            </button>
+          </div>
+        ) : (
+          <button
+            onClick={() => {
+              router.push("/");
+              ModalStore.openModal(modals.login);
+            }}
+            className="bg-blue-500 text-white px-4 py-2 rounded-md mr-2"
+          >
+            כניסה
+          </button>
+        )}
+      </div>
     </header>
   );
 });

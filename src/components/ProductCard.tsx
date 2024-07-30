@@ -1,6 +1,7 @@
 // components/Product.tsx
 
-import { Product } from "@/api/product/interfaces";
+import { Product } from "@/interfaces/Product";
+import authStore from "@/mobx/authStore";
 import cartStore from "@/mobx/cartStore";
 import messageStore from "@/mobx/messageStore";
 import { ModalStore } from "@/mobx/modalStore";
@@ -56,7 +57,7 @@ const ProductCard: React.FC<ProductProps> = ({ product, pageName }) => {
           מחיר : {price}
         </h3>
       </div>
-      {pageName === "home" && (
+      {pageName === "home" && !authStore.isLoggedIn && (
         <button
           onClick={addToCart}
           disabled={isExists}
@@ -67,7 +68,7 @@ const ProductCard: React.FC<ProductProps> = ({ product, pageName }) => {
           {isExists ? "הוסף לעגלה" : "הכנס לעגלה"}
         </button>
       )}
-      {pageName === "cart" && (
+      {pageName === "cart" && !authStore.isLoggedIn && (
         <button
           onClick={() => {
             if (!product.id) throw new Error("id not exists");

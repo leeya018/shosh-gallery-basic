@@ -16,9 +16,9 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import productStore from "@/mobx/ProductStore";
 import AddProductForm from "@/components/AddProductForm";
+import LoginForm from "@/components/LoginForm";
 const HomePage = ({}) => {
   const [isLoading, setIsLoading] = useState(false);
-  const [products, setProducts] = useState(false);
 
   useEffect(() => {
     axios
@@ -47,6 +47,13 @@ const HomePage = ({}) => {
         closeModal={ModalStore.closeModal}
       >
         <AddProductForm />
+      </Modal>
+
+      <Modal
+        isOpen={ModalStore.modalName === modals.login}
+        closeModal={ModalStore.closeModal}
+      >
+        <LoginForm />
       </Modal>
 
       <Modal
