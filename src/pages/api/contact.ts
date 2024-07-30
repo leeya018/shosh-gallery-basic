@@ -1,4 +1,4 @@
-import { Product } from "@/api/product/interfaces";
+import { Product } from "@/interfaces/Product";
 import { NextApiRequest, NextApiResponse } from "next";
 import nodemailer from "nodemailer";
 

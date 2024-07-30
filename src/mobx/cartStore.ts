@@ -1,6 +1,6 @@
 // stores/CartStore.ts
 
-import { Product } from "@/api/product/interfaces";
+import { Product } from "@/interfaces/Product";
 import { autorun, makeAutoObservable, toJS } from "mobx";
 
 class CartStore {

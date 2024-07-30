@@ -15,7 +15,7 @@ import EditProductForm from "@/components/EditProductForm";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import productStore from "@/mobx/ProductStore";
-import AddProductForm from "@/components/AddProductForm";
+// import AddProductForm from "@/components/AddProductForm";
 import LoginForm from "@/components/LoginForm";
 import authStore from "@/mobx/authStore";
 const HomePage = ({}) => {
@@ -43,12 +43,12 @@ const HomePage = ({}) => {
       </Modal>
 
       <Message />
-      <Modal
+      {/* <Modal
         isOpen={ModalStore.modalName === modals.addProduct}
         closeModal={ModalStore.closeModal}
       >
         <AddProductForm />
-      </Modal>
+      </Modal> */}
 
       <Modal
         isOpen={ModalStore.modalName === modals.login}
