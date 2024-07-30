@@ -3,7 +3,7 @@ import fs from "fs";
 import path from "path";
 import { Product } from "@/interfaces/Product";
 
-const filePath = path.join(process.cwd(), "src/pages/api/data", "items.json");
+const filePath = path.join(process.cwd(), "data", "items.json");
 
 const getItems = (): Product[] => {
   const jsonData = fs.readFileSync(filePath, "utf-8");
